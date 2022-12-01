@@ -9,8 +9,19 @@ public struct Day1 {
 public extension Day1 {
     func partOne() throws -> Int {
         let inputString = try String(contentsOf: inputURL)
-        let inputLines = inputString.split(separator: "\n")
+        let input: [[Int]] = inputString
+            .split(separator: "\n\n")
+            .map { string in
+                string
+                    .components(separatedBy: "\n")
+                    .compactMap(Int.init)
+            }
         
-        return 0
+        let highest = input.map { elf in
+            return elf.reduce(0, +)
+        }
+        .max()!
+        
+        return highest
     }
 }
