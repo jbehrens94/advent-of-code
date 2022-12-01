@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "AOC",
+    platforms: [.macOS(.v13)],
     products: [
         // 2022 solutions
         .library(name: "TwentyTwoKit", targets: ["TwentyTwoKit"]),
@@ -15,7 +16,8 @@ let package = Package(
         // 2022 solutions
         .target(
             name: "TwentyTwoKit",
-            dependencies: []),
+            resources: [.copy("Input")]),
+            
         .testTarget(
             name: "TwentyTwoKitTests",
             dependencies: ["TwentyTwoKit"]),
