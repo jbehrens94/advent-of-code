@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "AOC",
+    platforms: [.macOS(.v13)],
     products: [
         // 2022 solutions
         .library(name: "TwentyTwoKit", targets: ["TwentyTwoKit"]),
