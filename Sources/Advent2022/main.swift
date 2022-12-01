@@ -7,7 +7,7 @@ switch commands {
 case ["day1", "part1"]:
     print(try! Day1().partOne())
 case ["day1", "part2"]:
-    print("TODO.")
+    print(try! Day1().partTwo())
     
 case []:
     print("No subcommand given"); exit(1)
