@@ -19,9 +19,33 @@ public final class Day2 {
         }
     }
     
+    public var advancedRounds: [AdvancedRound] {
+        get throws {
+            let inputString = try String(contentsOf: inputURL)
+            
+            return inputString
+                .split(separator: "\n")
+                .map { $0.components(separatedBy: " ") }
+                .map {
+                    AdvancedRound(
+                        opponentMove: .init(rawValue: $0.first ?? "") ?? .unknown,
+                        requiredResult: .init(rawValue: $0.last ?? "") ?? .unknown
+                    )
+                }
+        }
+    }
+    
     public var score: Int {
         get throws {
             return try rounds
+                .map { $0.score() }
+                .reduce(0, +)
+        }
+    }
+    
+    public var advancedScore: Int {
+        get throws {
+            return try advancedRounds
                 .map { $0.score() }
                 .reduce(0, +)
         }
@@ -61,6 +85,42 @@ public extension Day2 {
         }
     }
     
+    struct AdvancedRound {
+        let opponentMove: OpponentMove
+        let requiredResult: RequiredResult
+        
+        enum Result: Int, CaseIterable {
+            case lose = 0,
+                 draw = 3,
+                 win = 6
+        }
+        
+        func play() -> PlayerMove {
+            switch (opponentMove, requiredResult) {
+            // Losses
+            case (.rock, .lose): return .scissors
+            case (.scissors, .lose): return .paper
+            case (.paper, .lose): return .rock
+                
+            // Draws
+            case (.rock, .draw): return .rock
+            case (.scissors, .draw): return .scissors
+            case (.paper, .draw): return .paper
+                
+            // Wins
+            case (.rock, .win): return .paper
+            case (.scissors, .win): return .rock
+            case (.paper, .win): return .scissors
+                
+            default: return .unknown
+            }
+        }
+        
+        func score() -> Int {
+            return requiredResult.score + play().score
+        }
+    }
+    
     enum OpponentMove: String, CaseIterable {
         case rock = "A", paper = "B", scissors = "C", unknown
     }
@@ -77,6 +137,19 @@ public extension Day2 {
             }
         }
     }
+    
+    enum RequiredResult: String, CaseIterable {
+        case lose = "X", draw = "Y", win = "Z", unknown
+        
+        var score: Int {
+            switch self {
+            case .lose: return 0
+            case .draw: return 3
+            case .win: return 6
+            case .unknown: return 0
+            }
+        }
+    }
 }
 
 public extension Day2 {
@@ -85,6 +158,6 @@ public extension Day2 {
     }
     
     func partTwo() throws -> Int {
-        return 0 // TODO: Implement after part one.
+        return try advancedScore
     }
 }
