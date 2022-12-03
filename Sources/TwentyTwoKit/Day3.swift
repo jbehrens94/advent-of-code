@@ -33,8 +33,22 @@ public extension Day3 {
     }
     
     func partTwo() throws -> Int {
+        let groups = try input
+            .chunked(into: 3)
         
-        return 0
+        let sets = groups
+            .map { $0.map { Set($0) } }
+        
+        let shared = sets
+            .map { (group: [Set<Character>]) in group[0].intersection(group[1]).intersection(group[2]) }
+        
+        let values = shared
+            .map { Day3.scores[$0.first!]! }
+        
+        let answer = values
+            .reduce(0, +)
+        
+        return answer
     }
 }
 
@@ -42,11 +56,11 @@ extension Day3 {
     static let scores = {
         let alphabet = "abcdefghijklmnopqrstuvwxyz"
         let lowerScores = Dictionary(uniqueKeysWithValues: alphabet.enumerated().map { (i, c) in
-                (c, i+1)
+            (c, i+1)
         })
         
         let upperScores = Dictionary(uniqueKeysWithValues: alphabet.enumerated().map { (i, c) in
-                (c.uppercased().first!, i+27)
+            (c.uppercased().first!, i+27)
         })
         
         return lowerScores.merging(upperScores, uniquingKeysWith: { a, _ in a })
@@ -66,5 +80,13 @@ fileprivate extension String.SubSequence {
             Set(firstHalf),
             Set(secondHalf)
         ]
+    }
+}
+
+fileprivate extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        return stride(from: 0, to: count, by: size).map {
+            Array(self[$0 ..< Swift.min($0 + size, count)])
+        }
     }
 }
