@@ -8,6 +8,10 @@ case ["day1", "part1"]:
     print(try! Day1().partOne())
 case ["day1", "part2"]:
     print(try! Day1().partTwo())
+case ["day2", "part1"]:
+    print(try! Day2().partOne())
+case ["day2", "part2"]:
+    print(try! Day2().partTwo())
     
 case []:
     print("No subcommand given"); exit(1)
