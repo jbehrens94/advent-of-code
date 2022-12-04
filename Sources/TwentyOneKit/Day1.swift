@@ -1,3 +1,4 @@
+import Algorithms
 import Foundation
 
 public final class Day1 {
@@ -17,23 +18,17 @@ public final class Day1 {
 
 public extension Day1 {
     func partOne() throws -> Int {
-        let inputs = try input.dropFirst()
-        let result: [ComparisonResult] = try inputs
-            .enumerated()
-            .map { index, element in
-                let previous = try input[index]
-                let result: ComparisonResult = element > previous ?
-                    .higher : .lower
-                
-                return result
-            }
-            .filter { $0 == .higher }
-        
-        return result.count
+        return zip(try input, try input.dropFirst())
+            .lazy
+            .filter { $0 < $1 }
+            .count
     }
     
     func partTwo() throws -> Int {
-        return 0
+        return zip(try input, try input.dropFirst(3))
+            .lazy
+            .filter { $0 < $1 }
+            .count
     }
 }
 
