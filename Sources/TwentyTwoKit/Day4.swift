@@ -39,7 +39,15 @@ public extension Day4 {
     }
     
     func partTwo() throws -> Int {
-        return 0
+        let ranges = try input
+        
+        return ranges
+            .map { $0.first!.overlaps($0.last!) || $0.last!.overlaps($0.first!) }
+            .reduce(0) { partialResult, value in
+                return value ?
+                    partialResult + 1 :
+                    partialResult
+            }
     }
 }
 
