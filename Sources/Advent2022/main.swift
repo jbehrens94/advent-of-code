@@ -20,6 +20,10 @@ case ["day4", "part1"]:
     print(try! Day4().partOne())
 case ["day4", "part2"]:
     print(try! Day4().partTwo())
+case ["day5", "part1"]:
+    print(try! Day5().partOne())
+case ["day5", "part2"]:
+    print(try! Day5().partTwo())
 case ["day6", "part1"]:
     print(try! Day6().partOne())
 case ["day6", "part2"]:
