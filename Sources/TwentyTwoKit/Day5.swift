@@ -54,7 +54,21 @@ public extension Day5 {
     }
     
     func partTwo() throws -> String {
+        var stacks = stacks
         
-        return ""
+        try input
+            .forEach {
+                let startIndex = stacks[$0.from].startIndex
+                let middleIndex = stacks[$0.from].endIndex - $0.amount
+                let endIndex = stacks[$0.from].endIndex
+                
+                let xs = stacks[$0.from][middleIndex..<endIndex]
+                let remainder = stacks[$0.from][startIndex..<middleIndex]
+                
+                stacks[$0.to].append(contentsOf: xs)
+                stacks[$0.from] = Array(remainder)
+            }
+        
+        return stacks.compactMap(\.last).joined()
     }
 }
