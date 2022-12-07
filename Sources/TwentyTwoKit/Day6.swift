@@ -15,16 +15,25 @@ public final class Day6 {
 
 public extension Day6 {
     func partOne() throws -> Int {
+        let threshold = 4
         let result = try input
-            .windows(ofCount: 4)
-            .map { Set($0) }
+            .windows(ofCount: threshold)
+            .map(Set.init)
             .enumerated()
-            .first { $0.1.count == 4 }
+            .first { $0.element.count == threshold }
         
-        return result!.0 + 4
+        return result!.offset + threshold
     }
     
     func partTwo() throws -> Int {
-        return 0
+        let threshold = 14
+        
+        let result = try input
+            .windows(ofCount: threshold)
+            .map(Set.init)
+            .enumerated()
+            .first { $0.element.count == threshold }
+        
+        return result!.offset + threshold
     }
 }
