@@ -97,7 +97,18 @@ public extension Day7 {
     }
     
     func partTwo() throws -> Int {
-        return 0
+        let input = try input
+        let lines = try parse(input: input)
+        let tree = makeTree(lines: lines)
+        
+        let total = 70000000
+        let used = tree.size
+        let currentFree = total - used
+        let minimumDelete = 30000000 - currentFree
+        
+        let sizes = tree.visit { $0.size }
+        
+        return sizes.filter { $0 >= minimumDelete }.min()!
     }
 }
 
