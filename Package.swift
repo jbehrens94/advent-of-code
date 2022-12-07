@@ -11,11 +11,15 @@ let package = Package(
         .executable(name: "advent2022", targets: ["Advent2022"])
     ],
     dependencies: [
+        .package(url: "https://github.com/apple/swift-algorithms", from: "1.0.0"),
     ],
     targets: [
         // 2022 solutions
         .target(
             name: "TwentyTwoKit",
+            dependencies: [
+                .product(name: "Algorithms", package: "swift-algorithms"),
+            ],
             resources: [.copy("Input")]),
             
         .testTarget(
