@@ -12,6 +12,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-algorithms", from: "1.0.0"),
+        .package(url: "https://github.com/pointfreeco/swift-parsing", from: "0.1.0"),
     ],
     targets: [
         // 2022 solutions
@@ -19,6 +20,7 @@ let package = Package(
             name: "TwentyTwoKit",
             dependencies: [
                 .product(name: "Algorithms", package: "swift-algorithms"),
+                .product(name: "Parsing", package: "swift-parsing"),
             ],
             resources: [.copy("Input")]),
             
